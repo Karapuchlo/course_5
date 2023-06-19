@@ -1,5 +1,4 @@
 import json
-
 import psycopg2
 from hh_parser import HeadHunter
 from psycopg2 import errors

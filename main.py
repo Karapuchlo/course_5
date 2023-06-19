@@ -31,19 +31,7 @@ def main():
     print("""Получаем список всех компаний и количество вакансий у каждой компании""")
     data_5 = db.get_vacancies_with_keyword('python')
     print(data_5)
-    # employers_from_json = read_json(PATH_2)
-    # print('Добавляем данные о работодателях')
-    #
-    # db.insert('employers', employers_from_json)
-    # print('Данные о работодателях добавлены')
-    # print('Добавляем данные о вакансиях')
-    # print('................................')
-    # hh = HeadHunter.get_vacancies
-    # vacancies_from_json = read_json(PATH)
-    # for i in range(len(employers_from_json)):
-    #     db.insert('vacancies', vacancies_from_json)
-    # print('Данные о вакансиях добавлены')
-    #
+
 
 if __name__ == '__main__':
     main()
