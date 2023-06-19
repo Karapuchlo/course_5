@@ -12,7 +12,7 @@ class DBManager:
 
     def create_database(self):
         """Создает базу данных и инициирует подключение к ней с указанными параметрами"""
-        conn = psycopg2.connect(dbname='postgres', **self.params)
+        conn = psycopg2.connect(dbname='head_hunter', **self.params)
         conn.autocommit = True
         cur = conn.cursor()
 
