@@ -57,12 +57,13 @@ class DBManager:
                 cur = conn.cursor()
                 for item in data['items']:
                     employer = item['employer']
-                    cur.execute("""
-                        INSERT INTO employers (employer_id, employer_name)
-                        VALUES (%s, %s)
-                        ON CONFLICT (employer_id) DO NOTHING;
-                    """, (employer['id'], employer['name']))
-                    conn.commit()
+                    if item['employer']['id'] is not None:
+                        cur.execute("""
+                            INSERT INTO employers (employer_id, employer_name)
+                            VALUES (%s, %s)
+                            ON CONFLICT (employer_id) DO NOTHING;
+                        """, (employer['id'], employer['name']))
+                        conn.commit()
 
                     if item.get('salary') is not None:
                         salary_from = item.get('salary').get('from')
