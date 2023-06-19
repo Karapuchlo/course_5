@@ -12,7 +12,7 @@ class DBManager:
 
     def create_database(self):
         """Создает базу данных и инициирует подключение к ней с указанными параметрами"""
-        conn = psycopg2.connect(dbname='head_hunter', **self.params)
+        conn = psycopg2.connect(dbname='postgres', **self.params)
         conn.autocommit = True
         cur = conn.cursor()
 
@@ -57,13 +57,15 @@ class DBManager:
                 cur = conn.cursor()
                 for item in data['items']:
                     employer = item['employer']
-                    if item['employer']['id'] is not None:
+                    try:
                         cur.execute("""
                             INSERT INTO employers (employer_id, employer_name)
                             VALUES (%s, %s)
                             ON CONFLICT (employer_id) DO NOTHING;
                         """, (employer['id'], employer['name']))
                         conn.commit()
+                    except Exception:
+                        print('не сущестует')
 
                     if item.get('salary') is not None:
                         salary_from = item.get('salary').get('from')
@@ -72,13 +74,16 @@ class DBManager:
                         salary_from = None
                         salary_to = None
 
-                    cur.execute("""
-                        INSERT INTO vacancies (vacancy_id, vacancy_name, employer_id, city, salary_min, salary_max, url)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s)
-                        ON CONFLICT (vacancy_id) DO NOTHING;
-                    """, (item['id'], item['name'], item['employer']['id'], json.dumps(item['address']), salary_from,
-                          salary_to, item['url']))
-                    conn.commit()
+                    try:
+                        cur.execute("""
+                            INSERT INTO vacancies (vacancy_id, vacancy_name, employer_id, city, salary_min, salary_max, url)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT (vacancy_id) DO NOTHING;
+                        """, (item['id'], item['name'], item['employer']['id'], json.dumps(item['address']), salary_from,
+                              salary_to, item['url']))
+                        conn.commit()
+                    except Exception:
+                        print('не сущестует')
 
     def _execute_query(self, query) -> list:
         """Возвращает результат запроса"""
