@@ -2,9 +2,6 @@ from db_manager import DBManager
 from config import config
 from hh_parser import HeadHunter
 
-PATH = 'vacancies.json'
-PATH_2 = 'employers.json'
-
 def main():
     params = config()
     db = DBManager('head_hunter', params)
