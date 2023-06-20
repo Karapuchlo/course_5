@@ -141,9 +141,6 @@ class DBManager:
         return result
 
 if __name__ == '__main__':
-    # search_keyword = 'Python'
-    # hh = HeadHunter(search_keyword)
-    # k = hh.get_request()
     params = config()
     db = DBManager('head_hunter', params)
     data = db.get_companies_and_vacancies_count()
