@@ -53,7 +53,7 @@ class HeadHunter:
 
     @staticmethod
     def get_info(data):
-        """Структурирует получаемые из API данн"""
+        """Структурирует получаемые из API данных"""
 
         vacancy_id = int(data.get('id'))
         name = data['name']
