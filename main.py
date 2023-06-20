@@ -6,7 +6,7 @@ def main():
     params = config()
     db = DBManager('head_hunter', params)
     print('Создаем базу данных и таблицы')
-    db2 = db.create_database()
+    db.create_database()
     print(f'База данных и таблицы созданы')
     search_keyword = 'Python'
     hh = HeadHunter(search_keyword)
